@@ -2,7 +2,7 @@ import { Header } from '@/components/Header';
 import { Input } from '@/components/Input';
 import { colors } from '@/constants/colors';
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -29,13 +29,16 @@ export default function Step() {
       <ScrollView style={styles.constent}>
         <Text style={styles.label}>Nome:</Text>
         <Input name='name' control={control} placeholder='Digite seu nome' error={errors.name?.message} keyboardType='default' />
-        {/* <Text style={styles.label}>Peso:</Text>
+        <Text style={styles.label}>Peso:</Text>
         <Input name='weight' control={control} placeholder='Digite seu peso' error={errors.weight?.message} keyboardType='numeric' />
+        <Text style={styles.label}>Altura:</Text>
+        <Input name='height' control={control} placeholder='Digite sua altura' error={errors.height?.message} keyboardType='numeric' />
         <Text style={styles.label}>Idade:</Text>
         <Input name='age' control={control} placeholder='Digite sua idade' error={errors.age?.message} keyboardType='numeric' />
-        <Text style={styles.label}>Altura:</Text>
-        <Input name='height' control={control} placeholder='Digite sua altura' error={errors.height?.message} keyboardType='numeric' /> */}
 
+        <Pressable style={styles.btn} >
+          <Text style={styles.btnText}>Continuar</Text>
+        </Pressable>
 
       </ScrollView>
     </View>
@@ -57,4 +60,16 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: colors.white,
   },
+  btn: {
+    backgroundColor: colors.blue,
+    height: 44,
+    justifyContent: 'center',
+    borderRadius: 4,
+    alignItems: 'center',
+  },
+  btnText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+  }
 });
