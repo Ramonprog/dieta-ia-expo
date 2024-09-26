@@ -1,5 +1,6 @@
 import { colors } from "@/constants/colors";
 import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Text, View, StyleSheet, Pressable, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -13,7 +14,7 @@ export function Header({ step, title }: HeaderProps) {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <View style={styles.row}>
-          <Pressable>
+          <Pressable onPress={() => router.back()}>
             <Feather name="arrow-left" size={24} color={colors.black} />
           </Pressable>
           <Text style={styles.text}>{step} <Feather name="loader" size={16} color={colors.black} /></Text>
