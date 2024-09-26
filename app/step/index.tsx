@@ -7,6 +7,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { router } from 'expo-router';
 
 const schema = z.object({
   name: z.string().min(1, { message: 'Nome é obrigatório' }),
@@ -23,6 +24,10 @@ export default function Step() {
     resolver: zodResolver(schema),
   });
 
+  function handleCreate(data: FormData) {
+    router.push('/create')
+  }
+
   return (
     <View style={styles.container}>
       <Header step='Passo 1' title='Vamos começar' />
@@ -36,7 +41,7 @@ export default function Step() {
         <Text style={styles.label}>Idade:</Text>
         <Input name='age' control={control} placeholder='Digite sua idade' error={errors.age?.message} keyboardType='numeric' />
 
-        <Pressable style={styles.btn} >
+        <Pressable style={styles.btn} onPress={handleSubmit(handleCreate)}>
           <Text style={styles.btnText}>Continuar</Text>
         </Pressable>
 

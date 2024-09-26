@@ -18,13 +18,14 @@ export function Input({ control, keyboardType, name, placeholder, rules, error }
         control={control}
         name={name}
         rules={rules}
-
-        render={({ field }) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            {...field}
             style={styles.input}
             placeholder={placeholder}
             keyboardType={keyboardType}
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
           />
         )}
       />
