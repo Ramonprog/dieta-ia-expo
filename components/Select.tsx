@@ -29,7 +29,7 @@ export function Select({ control, name, placeholder, error, options }: SelectPro
         render={({ field: { onChange, onBlur, value } }) => (
           <>
             <TouchableOpacity style={styles.select} onPress={() => setIsOpen(true)}>
-              <Text>Selecione ...</Text>
+              <Text>{value ? options.find((item) => item.value === value)?.label : placeholder}</Text>
               <Feather name='chevron-down' size={16} color={colors.black} />
             </TouchableOpacity>
 
@@ -46,11 +46,17 @@ export function Select({ control, name, placeholder, error, options }: SelectPro
                     data={options}
                     keyExtractor={(item) => item.value.toString()}
                     renderItem={({ item }) => (
-                      <TouchableOpacity style={styles.option} activeOpacity={1} onPress={() => onChange(item.value)}>
+                      <TouchableOpacity
+                        style={styles.option}
+                        activeOpacity={1}
+                        onPress={() => {
+                          onChange(item.value)
+                          setIsOpen(false)
+                        }}>
                         <Text>{item.label}</Text>
                       </TouchableOpacity>
                     )}
-                  ></FlatList>
+                  />
                 </TouchableOpacity>
 
               </TouchableOpacity>
@@ -85,6 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 4,
+    paddingHorizontal: 10,
   },
   modalContainer: {
     flex: 1,
