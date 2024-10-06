@@ -6,6 +6,7 @@ import { colors } from '@/constants/colors';
 import { Header } from '@/components/Header';
 import { Select } from '@/components/Select';
 import { useDataStore } from '@/store/data';
+import { router } from 'expo-router';
 
 const schema = z.object({
   gender: z.string().min(1, { message: 'Sexo é obrigatório' }),
@@ -25,6 +26,7 @@ export default function Create() {
 
   function handleCreate(data: FormData) {
     setPageTow(data)
+    router.push('/nutrition')
   }
 
   return (
