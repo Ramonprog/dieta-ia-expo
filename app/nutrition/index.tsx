@@ -3,7 +3,7 @@ import { api } from "@/service/api";
 import { useDataStore } from "@/store/data";
 import { DataType } from "@/types/data";
 import { useQuery } from "@tanstack/react-query";
-import { StyleSheet, Text, View, ActivityIndicator, Pressable, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator, Pressable, ScrollView, Share } from "react-native";
 import { Ionicons } from '@expo/vector-icons'
 import { router } from "expo-router";
 
@@ -63,12 +63,28 @@ export default function Nutrition() {
     );
   }
 
+  async function handleShare() {
+    try {
+      if (data && Object.keys(data).length === 0) return;
+
+      const suplements = `${data?.suplementos.map(item => `${item}`)}`
+      const foods = `${data?.refeicoes.map(item => `\n- Nome: ${item.nome}\n- Horário: ${item.horario}\n- Alimentos: ${item.alimentos.map(alimento => `${alimento}`)}`)}`
+      const message = `Dieta: ${data?.nome} - Objetivo: ${data?.objetivo}\n\n${foods}\n\n- Dica de suplementos:\n${suplements}`
+
+      await Share.share({
+        message: message
+      })
+    } catch (error) {
+      console.log("🚀 ~ handleShare ~ error:", error)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.containerHeader}>
         <View style={styles.contentHeader}>
           <Text style={styles.titleHeader}>Minha dieta</Text>
-          <Pressable style={styles.buttonShare}>
+          <Pressable style={styles.buttonShare} onPress={handleShare}>
             <Text style={styles.buttonShareText}>Compartilhar</Text>
           </Pressable>
         </View>
