@@ -11,4 +11,5 @@ altura: number;
 peso: number;
 objetivo: number;
 refeicoes: RefeicoesProps[];
+suplementos: string[];
 }
